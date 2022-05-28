@@ -206,11 +206,16 @@ if __name__ == "__main__":
                             print(f' {result[1]}')
                             os.system(f'title {total} {userName}')
 
+                            sleep = randrange(60, 65)
+                            print(f"Wait for {sleep}")
+                            time.sleep(sleep)
+
                             if result[0] == 1:
                                 completedLost = False
                                 break
                             elif result[0] == 2:
                                 continue
+
                             to += 1
             if l <= 2:
                 itime = 0
