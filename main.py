@@ -31,7 +31,7 @@ def findopj(pattern: str, delay: int = 10, inputDriver=False, listmode=False):
         )
 
     except UnexpectedAlertPresentException:
-        time.sleep(2)
+        sleepTime(2)
         return False
     except TimeoutException:
         return False
@@ -55,7 +55,7 @@ def amountCutting(st):
 
 def get_result():
     while True:
-        time.sleep(1)
+        sleepTime(1)
         r = get_update_msg()
         if r:
             r = r.lower()
@@ -76,7 +76,7 @@ def conProblemCheck():
         if not checkProblem:
             return
         print(f"Connection Problem rise {_}")
-        time.sleep(1)
+        sleepTime(1)
 
     sys.exit()
 
@@ -95,10 +95,25 @@ def daliyWeekly():
                 findTextBoxt.send_keys(Keys.ENTER)
 
 
+def sleepTime(wait):
+    if wait > 1:
+        for _ in reversed(range(1, wait+1)):
+            msg = 'wating {number:0{width}d}s'.format(width=2, number=_)
+            print("\r", end='')
+            print(msg, end='', flush=True)
+            time.sleep(1)
+        print("\r" + (' '*(len(msg)+5)), end='')
+        print(' ', end='')
+    else:
+        time.sleep(wait)
+
+
 if __name__ == "__main__":
     # pattern
     inputbox = '//div[@aria-label="Message #🎡︱nunatico"]'
     connectionProblem = "//div[text()='Connection problems? Let us know!']"
+    userNameP = '//div[@data-text-variant="text-sm/normal"]/div[@data-text-variant="text-sm/normal"]'
+    setAmountBoxP = '//div[text()="Throw two dice to gain coins"]'
 
     options = Options()
     if not '--hold' in sys.argv:
@@ -137,12 +152,12 @@ if __name__ == "__main__":
     driver = webdriver.Edge(options=options)
     landing = f"https://discord.com/channels/823944237686849586/971491705239003186"
     driver.get(landing)
-    time.sleep(1)
+    sleepTime(1)
     if '--hold' in sys.argv:
         input("Hold mode is on. Type any key to release : ")
 
     findUserName = findopj(
-        '//div[@data-text-variant="text-sm/normal"]/div[@data-text-variant="text-sm/normal"]')
+        userNameP)
     if findUserName:
         userName = findUserName.text
         print("Your userName: " + userName)
@@ -181,7 +196,7 @@ if __name__ == "__main__":
                 if findTextBoxt:
                     findTextBoxt.send_keys('/dice')
                     findAmountsetBox = findopj(
-                        '//div[text()="Throw two dice to gain coins"]')
+                        setAmountBoxP)
                     if findAmountsetBox:
                         findAmountsetBox.click()
                         findTextBoxt = findopj(
@@ -190,9 +205,8 @@ if __name__ == "__main__":
                             sendBits = randrange(listbets[to]-5, listbets[to])
                             findTextBoxt.send_keys(
                                 f'{sendBits if limitMode >= sendBits else limitMode}\n')
-                            time.sleep(randrange(3, 4))
+                            sleepTime(randrange(6, 8))
                             result = get_result()
-                            time.sleep(randrange(2, 5))
                             if result[0] == 1:
                                 print('won', end='')
                                 total += result[1]
@@ -206,9 +220,7 @@ if __name__ == "__main__":
                             print(f' {result[1]}')
                             os.system(f'title {total} {userName}')
 
-                            sleep = randrange(60, 65)
-                            print(f"Wait for {sleep}")
-                            time.sleep(sleep)
+                            sleepTime(randrange(60, 65))
 
                             if result[0] == 1:
                                 completedLost = False
