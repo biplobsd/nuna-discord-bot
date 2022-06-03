@@ -142,6 +142,12 @@ if __name__ == "__main__":
         else:
             limitMode = int(limitMode)
 
+        timeInterval = input("Is any time Interval [60]: ")
+        if not timeInterval:
+            timeInterval = 60
+        else:
+            timeInterval = int(timeInterval)
+
     options.add_argument(
         f'--user-data-dir={os.getcwd()}//edgeProfile')
     options.add_argument('log-level=3')
@@ -220,7 +226,7 @@ if __name__ == "__main__":
                             print(f' {result[1]}')
                             os.system(f'title {total} {userName}')
 
-                            sleepTime(randrange(60, 65))
+                            sleepTime(randrange(timeInterval, timeInterval+5))
 
                             if result[0] == 1:
                                 completedLost = False
