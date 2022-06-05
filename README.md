@@ -3,7 +3,7 @@
 This program will auto play dice game in nuna discord server. I have create this program using selenium browser automation library.
 
 ## Preview
-![preview.gif](assets\preview.gif)
+![preview.gif](assets/preview.gif)
 
 
 ## Download
