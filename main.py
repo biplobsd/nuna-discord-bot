@@ -87,7 +87,7 @@ def daliyWeekly():
         if findTextBoxt:
             if randrange(2):
                 findTextBoxt.send_keys(
-                    f'/work {Keys.ENTER}' if randrange(2) else f'!work {Keys.ENTER}')
+                    f'/work claim{Keys.ENTER}' if randrange(2) else f'!work {Keys.ENTER}')
                 findTextBoxt.send_keys(Keys.ENTER)
             if randrange(2):
                 findTextBoxt.send_keys(
