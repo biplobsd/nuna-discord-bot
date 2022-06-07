@@ -148,6 +148,8 @@ if __name__ == "__main__":
         else:
             timeInterval = int(timeInterval)
 
+    copyListbets = listbets
+
     options.add_argument(
         f'--user-data-dir={os.getcwd()}//edgeProfile')
     options.add_argument('log-level=3')
@@ -194,7 +196,9 @@ if __name__ == "__main__":
                     print(f"Decreasing bets list {listbets}")
                     if sum(n < 0 for n in listbets) != 0:
                         print("Nagative value found")
-                        sys.exit()
+                        input("Pass any key to continue again ... ")
+                        listbets = copyListbets
+
                     dtime += 1
                 conProblemCheck()
                 findTextBoxt = findopj(
